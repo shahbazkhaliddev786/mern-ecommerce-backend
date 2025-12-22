@@ -8,51 +8,23 @@ export type ApiResponse<T = unknown> = {
 };
 
 /**
- * Send a standard API response
- * @param res Express Response object
- * @param statusCode HTTP status code
- * @param status "success" or "error"
- * @param message Response message
- * @param data Optional payload data
- * @param meta Optional metadata (pagination, extra info)
+ * Universal response helper - works for success, error, any status code
  */
-export function sendResponse<T>(
+export const apiResponse = <T>(
   res: Response,
   statusCode: number,
   status: "success" | "error",
   message: string,
   data?: T,
   meta?: Record<string, unknown>
-): void {
-  const responseBody: ApiResponse<T> = { status, message };
+): void => {
+  const body: ApiResponse<T> = {
+    status,
+    message,
+  };
 
-  if (data !== undefined) responseBody.data = data;
-  if (meta !== undefined) responseBody.meta = meta;
+  if (data !== undefined) body.data = data;
+  if (meta !== undefined) body.meta = meta;
 
-  res.status(statusCode).json(responseBody);
-}
-
-/**
- * Shortcut for success responses
- */
-export function successResponse<T>(
-  res: Response,
-  message: string,
-  data?: T,
-  meta?: Record<string, unknown>
-): void {
-  sendResponse(res, 200, "success", message, data, meta);
-}
-
-/**
- * Shortcut for error responses
- */
-export function errorResponse<T>(
-  res: Response,
-  message: string,
-  statusCode = 500,
-  data?: T,
-  meta?: Record<string, unknown>
-): void {
-  sendResponse(res, statusCode, "error", message, data, meta);
-}
+  res.status(statusCode).json(body);
+};

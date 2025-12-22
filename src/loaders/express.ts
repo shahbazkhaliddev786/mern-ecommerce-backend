@@ -5,9 +5,7 @@ import helmet from "helmet";
 import cookieParser from "cookie-parser";
 import path from "path";
 import globalErrorHandler from "../middlewares/global-error.handler.js";
-import type { Request, Response } from "express";
 import { fileURLToPath } from "url";
-import { errorResponse } from "../utils/api.response.js";
 
 // __dirname replacement in ESM
 const __filename = fileURLToPath(import.meta.url);
@@ -37,15 +35,6 @@ export default async function expressLoader(app: Express) {
   app.use(cookieParser());
 
   app.use(express.static(path.join(__dirname, "../public")));
-
-  // 404 handler
-  app.use((req: Request, res: Response) => {
-    errorResponse(res, "Route not found", 404, {
-      path: req.originalUrl,
-      method: req.method,
-    });
-  });
-
 
   // Global error handler
   app.use(globalErrorHandler);
