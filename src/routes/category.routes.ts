@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import {
   createCategory,
-  getAllCategories,
-  getCategoryById,
+  getCategories,
+  getCategory,
   updateCategory,
   deleteCategory,
 } from '../controllers/index.js';
@@ -20,7 +20,7 @@ export const categoryRouter = Router();
 categoryRouter.post('/', createCategoryValidation, validate, createCategory);
 
 // GET /api/categories - Get all categories
-categoryRouter.get('/', getAllCategories);
+categoryRouter.get('/', getCategories);
 
 // GET /api/categories/:id - Get category by ID
 // PUT /api/categories/:id - Update category
@@ -30,7 +30,7 @@ categoryRouter
   .get(
     param('id').isMongoId().withMessage('Invalid category ID format'),
     validate,
-    getCategoryById
+    getCategory
   )
   .patch(
     param('id').isMongoId().withMessage('Invalid category ID format'),

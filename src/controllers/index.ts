@@ -1,3 +1,4 @@
+export { self, health } from './health.controller.js';
 
 export {
   createCategory,
@@ -23,4 +24,27 @@ export {
   deleteProduct,
 } from '../controllers/product.controller.js';
 
-export { self, health } from './health.controller.js';
+export {  
+  register,
+  resendOTP,
+  verifyOtp,
+  login,
+  refreshToken,
+  logoutUser,
+} from './auth.controller.js';
+
+export {
+  getUserCart,
+  addItemToCart,
+  updateItemInCart,
+  removeItemFromCart,
+  clearUserCart
+} from "./cart.controller.js"
+
+export {
+  createOrder,
+  updateOrder,
+  deleteOrderCtrl,
+  getOrders,
+  getOrder,
+} from './order.controller.js';

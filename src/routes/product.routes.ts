@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import {
   createProduct,
-  getAllProducts,
-  getProductById,
+  getProducts,
+  getProduct,
   updateProduct,
   deleteProduct,
 } from '../controllers/index.js'; 
 
-import uploadFiles from '../middlewares/multer.middleware.js';
+import {uploadMultipleFiles} from '../middlewares/multer.middleware.js';
 
 import {
   createProductValidation,
@@ -23,21 +23,21 @@ export const productRouter = Router();
 // Multipart form-data with field "files" for images (up to 10)
 productRouter.post(
   '/',
-  uploadFiles,
+  uploadMultipleFiles,
   createProductValidation,
   validate,
   createProduct
 );
 
 // GET ALL - GET /api/v1/products
-productRouter.get('/', getAllProducts);
+productRouter.get('/', getProducts);
 
 // GET, UPDATE, DELETE by ID
 productRouter
   .route('/:id')
-  .get(productIdParamValidation, validate, getProductById)
+  .get(productIdParamValidation, validate, getProduct)
   .patch(
-    uploadFiles,
+    uploadMultipleFiles,
     productIdParamValidation,
     updateProductValidation,
     validate,

@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import {
   createBrand,
-  getAllBrands,
-  getBrandById,
+  getBrands,
+  getBrand,
   updateBrand,
   deleteBrand,
 } from '../controllers/index.js';
@@ -20,7 +20,7 @@ export const brandRouter = Router();
 brandRouter.post('/', createBrandValidation, validate, createBrand);
 
 // GET /api/brands - Get all brands
-brandRouter.get('/', getAllBrands);
+brandRouter.get('/', getBrands);
 
 // GET /api/brands/:id - Get brand by ID
 // PUT /api/brands/:id - Update brand
@@ -30,7 +30,7 @@ brandRouter
   .get(
     param('id').isMongoId().withMessage('Invalid brand ID format'),
     validate,
-    getBrandById
+    getBrand
   )
   .patch(
     param('id').isMongoId().withMessage('Invalid brand ID format'),

@@ -13,3 +13,11 @@ export {
 export {
     productRouter
 } from './product.routes.js';
+
+export {
+    authRouter
+} from './auth.routes.js';
+
+export {
+    cartRouter
+} from './cart.routes.js';
